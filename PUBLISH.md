@@ -6,7 +6,7 @@
 |------|------|------|---------|------|
 | ima 技能广场 | ➖ | | | 待用户在 ima 客户端手动发布（zip 已备好，见下方物料） |
 | GitHub | ✅ | https://github.com/simonsxxs/solution-doc-pipeline | 2026-11-06 | 公开仓库，main 分支，已推送 |
-| Gitee | ⏳ | git@gitee.com:simonsxx/solution-doc-pipeline.git | 2026-11-06 | remote 已配置；到 https://gitee.com/new 建空仓 `solution-doc-pipeline`（不勾选初始化 README）后执行 `git push gitee main` 即完成镜像 |
+| Gitee | ✅ | https://gitee.com/simonsxx/solution-doc-pipeline | 2026-11-06 | API 建仓 + SSH 推送，与 GitHub 同 commit 镜像 |
 | SkillHub | ➖ | | | 待发布（skillhub.cn，微信登录+实名） |
 | aiSkill.market | ➖ | | | 待发布（后端爬 GitHub 校验，仓库公开后可提交） |
 | ClawHub | ➖ | | | 待发布（GitHub OAuth 一键导入） |
