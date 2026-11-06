@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【文档标题】· v1.0</title>
+<style>
+:root{
+  --ink:#1b2740; --ink2:#3d4c6b; --ink3:#68738e;
+  --paper:#f6f4ee; --card:#ffffff; --line:#d9d2c0; --hair:#e8e2d3;
+  --accent:#2f56d6; --accent-deep:#1e3ea8; --accent-soft:#e9edfb;
+  --amber:#a85411; --amber-soft:#f9efe1;
+  --green:#20714a; --green-soft:#e7f2eb;
+  --navy:#141f38; --navy2:#1c2b4d;
+  --serif:"Songti SC","STZhongsong","Noto Serif SC","SimSun",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:"SF Mono","JetBrains Mono","Menlo","Consolas","Courier New",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper);
+  background-image:
+    radial-gradient(1200px 600px at 85% -100px, rgba(47,86,214,.045), transparent 60%),
+    radial-gradient(900px 500px at -100px 40%, rgba(20,31,56,.05), transparent 60%);
+  line-height:1.75; font-size:15px;
+}
+::selection{background:var(--accent);color:#fff}
+
+/* ---------- progress ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:99;transition:width .15s linear}
+
+/* ---------- layout ---------- */
+.wrap{display:grid;grid-template-columns:236px 1fr;max-width:1340px;margin:0 auto;gap:44px;padding:0 28px}
+@media(max-width:1080px){.wrap{grid-template-columns:1fr}}
+
+/* ---------- cover ---------- */
+.cover{
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,.045) 0 1px, transparent 1px 30px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.045) 0 1px, transparent 1px 30px),
+    linear-gradient(160deg,#101a30 0%, #16233f 55%, #1b2c52 100%);
+  color:#f3efe4; padding:64px 28px 56px; position:relative; overflow:hidden;
+}
+.cover::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border:1px solid rgba(243,239,228,.14);border-radius:50%}
+.cover::before{content:"";position:absolute;right:-40px;top:-40px;width:260px;height:260px;border:1px solid rgba(243,239,228,.10);border-radius:50%}
+.cover-in{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:48px;position:relative;z-index:2}
+@media(max-width:1080px){.cover-in{grid-template-columns:1fr}}
+.cover .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.35em;color:#8fa0d0;margin-bottom:22px}
+.cover h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,4.2vw,46px);line-height:1.28;letter-spacing:.02em}
+.cover h1 em{font-style:normal;color:#9db4f5}
+.cover .sub{margin-top:18px;font-size:15.5px;color:#c9c3b2;max-width:620px}
+.cover .rule{width:72px;height:4px;background:#9db4f5;margin:26px 0}
+.meta{border:1px solid rgba(243,239,228,.22);background:rgba(16,26,48,.55);border-radius:10px;padding:22px 24px;align-self:center}
+.meta table{width:100%;border-collapse:collapse;font-size:12.5px}
+.meta th{font-family:var(--mono);color:#8fa0d0;font-weight:500;text-align:left;padding:5px 0;white-space:nowrap;vertical-align:top;letter-spacing:.06em}
+.meta td{padding:5px 0 5px 18px;color:#ece7d8}
+.meta tr+tr th,.meta tr+tr td{border-top:1px solid rgba(243,239,228,.12)}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+.chip{font-family:var(--mono);font-size:11px;border:1px solid rgba(157,180,245,.5);color:#b9c8f2;border-radius:999px;padding:3px 11px;letter-spacing:.05em}
+
+/* ---------- toc ---------- */
+.toc{position:sticky;top:24px;align-self:start;padding:26px 0 40px;font-size:13px}
+@media(max-width:1080px){.toc{position:static;padding-bottom:8px}}
+.toc .toc-t{font-family:var(--mono);font-size:11px;letter-spacing:.3em;color:var(--ink3);margin-bottom:14px}
+.toc a{display:flex;gap:10px;color:var(--ink2);text-decoration:none;padding:5.5px 10px;border-left:2px solid transparent;border-radius:0 6px 6px 0}
+.toc a .n{font-family:var(--mono);font-size:11px;color:var(--ink3);min-width:20px;padding-top:1px}
+.toc a:hover{background:#fff;color:var(--ink)}
+.toc a.on{border-left-color:var(--accent);background:var(--accent-soft);color:var(--accent-deep);font-weight:600}
+.toc .print-btn{margin-top:18px;display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;border:1px solid var(--line);background:#fff;color:var(--ink2);padding:7px 13px;border-radius:7px;cursor:pointer;letter-spacing:.05em}
+.toc .print-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- sections ---------- */
+main{padding:12px 0 90px;min-width:0}
+.sec{padding-top:54px}
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:26px}
+.sec-head .no{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;background:var(--ink);padding:3px 10px;border-radius:5px;letter-spacing:.08em;transform:translateY(-2px)}
+.sec-head h2{font-family:var(--serif);font-size:26px;font-weight:700;letter-spacing:.02em}
+.sec-head .en{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--ink3);letter-spacing:.14em;white-space:nowrap}
+h3{font-size:17.5px;margin:34px 0 12px;font-weight:700;display:flex;align-items:center;gap:9px}
+h3::before{content:"";width:8px;height:8px;background:var(--accent);border-radius:2px;transform:rotate(45deg);flex:none}
+h4{font-size:15px;margin:22px 0 8px;color:var(--ink)}
+p{margin:10px 0;color:#2c3650}
+p b,strong{color:var(--ink)}
+ul,ol{margin:10px 0 10px 22px}
+li{margin:5px 0;color:#2c3650}
+code{font-family:var(--mono);font-size:.86em;background:#eee9db;border:1px solid var(--hair);border-radius:4px;padding:1px 6px;color:#1e3ea8}
+.path{font-family:var(--mono);font-size:.84em;color:var(--green)}
+
+/* ---------- tables ---------- */
+table.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:16px 0;font-size:13.2px}
+table.tbl th{font-size:11.5px;letter-spacing:.1em;color:var(--ink2);text-align:left;padding:10px 13px;background:#f1ede1;border-bottom:2px solid var(--ink);font-weight:700;white-space:nowrap}
+table.tbl td{padding:9.5px 13px;border-bottom:1px solid var(--hair);vertical-align:top}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl tr:nth-child(even) td{background:#faf8f2}
+table.tbl td .sm{font-size:12px;color:var(--ink3)}
+.tbl-wrap{overflow-x:auto;margin:16px 0}
+.tbl-wrap table.tbl{margin:0}
+
+/* ---------- callouts ---------- */
+.note,.warn,.proof{border-radius:8px;padding:15px 18px 15px 20px;margin:18px 0;position:relative;font-size:13.8px}
+.note{background:var(--accent-soft);border:1px solid #c8d4f4;border-left:4px solid var(--accent)}
+.warn{background:var(--amber-soft);border:1px solid #ecd7bb;border-left:4px solid var(--amber)}
+.proof{background:var(--green-soft);border:1px solid #c6dfd0;border-left:4px solid var(--green)}
+.note .t,.warn .t,.proof .t{display:block;font-weight:700;margin-bottom:5px;font-size:13px;letter-spacing:.06em}
+.note .t{color:var(--accent-deep)} .warn .t{color:var(--amber)} .proof .t{color:var(--green)}
+
+/* ---------- figures ---------- */
+figure.fig{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:22px 0;padding:18px 18px 14px;box-shadow:0 1px 0 rgba(27,39,64,.04)}
+figure.fig .fig-cap{display:flex;gap:10px;align-items:baseline;margin-top:10px;border-top:1px dashed var(--hair);padding-top:10px}
+.fig-no{font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;background:var(--accent);border-radius:4px;padding:2px 8px;white-space:nowrap}
+.fig-cap .cap-t{font-size:13px;font-weight:700}
+.fig-cap .cap-d{font-size:12px;color:var(--ink3)}
+figure.fig svg{width:100%;height:auto;display:block}
+
+/* svg internals */
+.bnd{fill:#eef0f6;stroke:#c6bfae;stroke-width:1;rx:10}
+.bx{fill:#fff;stroke:#57628a;stroke-width:1.1}
+.bx2{fill:#fbf8ef;stroke:#57628a;stroke-width:1.1;stroke-dasharray:5 3}
+.bxa{fill:#fdf6ec;stroke:#a85411;stroke-width:1.2}
+.bxg{fill:#f0f6f1;stroke:#20714a;stroke-width:1.2}
+.bxi{fill:#141f38}
+.tT{font:600 13px var(--sans);fill:#1b2740}
+.tTs{font:700 13.5px var(--sans);fill:#1b2740}
+.tS{font:400 11px var(--sans);fill:#4a5570}
+.tM{font:500 10.5px var(--mono);fill:#3d4c6b}
+.tMt{font:700 11px var(--mono);fill:#2f56d6;letter-spacing:.1em}
+.tTw{font:600 12.5px var(--sans);fill:#f3efe4}
+.tSw{font:400 10.5px var(--sans);fill:#c9c3b2}
+.tAw{font:700 11px var(--sans);fill:#e8b26a}
+.tA{font:600 11.5px var(--sans);fill:#a85411}
+.tG{font:600 11.5px var(--sans);fill:#20714a}
+.ar{stroke:#3d4c6b;stroke-width:1.4;fill:none;marker-end:url(#af)}
+.ard{stroke:#2f56d6;stroke-width:1.4;fill:none;stroke-dasharray:5 4;marker-end:url(#afd)}
+.ara{stroke:#a85411;stroke-width:1.4;fill:none;marker-end:url(#afa)}
+.tL{font:500 10.5px var(--sans);fill:#68738e}
+.tLb{font:600 10.5px var(--sans);fill:#2f56d6}
+
+/* misc */
+.pill{display:inline-block;font-family:var(--mono);font-size:10.5px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--ink2);background:#fff;margin:2px 3px 2px 0}
+.pill.b{border-color:#c8d4f4;background:var(--accent-soft);color:var(--accent-deep)}
+.pill.g{border-color:#c6dfd0;background:var(--green-soft);color:var(--green)}
+.pill.a{border-color:#ecd7bb;background:var(--amber-soft);color:var(--amber)}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.kv .c{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px 15px}
+.kv .c .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--accent-deep);margin-bottom:5px}
+.kv .c .v{font-size:13.2px;font-weight:600}
+.kv .c .d{font-size:12px;color:var(--ink3);margin-top:3px}
+footer{border-top:2px solid var(--ink);margin-top:70px;padding:26px 28px 40px;font-size:12px;color:var(--ink3);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono)}
+
+/* ---------- print / PDF ---------- */
+@page{size:A4;margin:14mm 12mm 16mm}
+@media print{
+  #progress{display:none}
+  .toc .print-btn{display:none}
+  .toc{position:static;padding:10px 0 6px;border-bottom:2px solid var(--ink);margin-bottom:18px}
+  .toc .toc-t{margin-bottom:8px}
+  .toc a{display:inline-block;border:none;padding:2px 14px 2px 0;font-size:11px}
+  .toc a .n{min-width:16px}
+  .toc a.on{background:none;color:var(--ink2);font-weight:400}
+  .wrap{display:block;max-width:none;padding:0}
+  body{background:#fff;font-size:12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover{padding:40px 20px 34px;page-break-after:always}
+  .cover h1{font-size:34px}
+  .sec{page-break-before:always;padding-top:6px}
+  #s01{page-break-before:auto;padding-top:18px}
+  .sec-head{margin-bottom:18px}
+  .sec-head h2{font-size:21px}
+  h3{font-size:15px;margin:20px 0 8px;page-break-after:avoid}
+  h4{page-break-after:avoid}
+  figure.fig{page-break-inside:avoid;margin:14px 0;padding:12px 12px 9px}
+  table.tbl{page-break-inside:auto;font-size:10.8px}
+  table.tbl tr{page-break-inside:avoid}
+  .note,.warn,.proof,.kv .c{page-break-inside:avoid}
+  .kv{gap:8px}
+  figure.fig .fig-cap .cap-d{display:block;margin-top:2px}
+  footer{margin-top:36px;padding:16px 8px 0}
+  .colophon-card{page-break-inside:avoid}
+  #ui-signature-pill,#ui-signature-card{display:none!important}
+  .qrbox img,.cover .metaqr img{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+
+/* ---------- signature blocks ---------- */
+.cover .sig{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:2px}
+.cover .sig-name{font-family:var(--serif);font-size:30px;font-weight:700;color:#f3efe4;letter-spacing:.04em}
+.cover .sig-tag{font-size:14px;color:#9db4f5}
+.cover .sig-contacts{font-family:var(--mono);font-size:12px;color:#c9c3b2}
+.colophon{padding-top:54px}
+.colophon-card{background:linear-gradient(160deg,#101a30,#1b2c52);color:#f3efe4;border-radius:14px;padding:58px 40px 48px;text-align:center;position:relative;overflow:hidden}
+.colophon-card::after{content:"";position:absolute;left:-80px;bottom:-120px;width:300px;height:300px;border:1px solid rgba(243,239,228,.12);border-radius:50%}
+.colophon-card .k{font-family:var(--mono);font-size:11px;letter-spacing:.4em;color:#8fa0d0;margin-bottom:26px}
+.colophon-card .name{font-family:var(--serif);font-size:46px;font-weight:700;letter-spacing:.06em}
+.colophon-card .tagline{margin-top:8px;font-size:16px;color:#9db4f5}
+.colophon-card .contacts{margin-top:22px;font-family:var(--mono);font-size:13px;color:#c9c3b2;letter-spacing:.04em}
+.colophon-card .docmeta{margin-top:30px;padding-top:18px;border-top:1px solid rgba(243,239,228,.18);font-family:var(--mono);font-size:11px;color:#8fa0d0}
+.sig-contacts a,.colophon-card .contacts a,footer a{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(201,195,178,.45)}
+.qrbox{margin:26px auto 0;width:174px;background:#fff;border-radius:12px;padding:12px 12px 9px}
+.qrbox img{width:150px;height:150px;display:block}
+.qrbox .qrcap{margin-top:7px;font-size:11px;color:#3d4c6b;text-align:center}
+.cover .metaqr{margin-top:16px;text-align:center}
+.cover .metaqr img{width:84px;height:84px;border-radius:8px;background:#fff;padding:4px}
+.cover .metaqr div{margin-top:6px;font-family:var(--mono);font-size:10px;color:#8fa0d0;letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- ==================== 封面（首页）==================== -->
+<header class="cover" id="top">
+  <div class="cover-in">
+    <div>
+      <div class="kicker">【英文栏 · 大写间距】</div>
+      <h1>【主标题】<br>【第二行 + <em>强调词</em>】</h1>
+      <p class="sub">【一句话副题：方案定位 + 核心关键词】</p>
+      <div class="rule"></div>
+      <div class="sig">
+        <span class="sig-name">simon</span>
+        <span class="sig-tag">一个不懂代码的 AI 极客</span>
+        <span class="sig-contacts">微信 simonsxxs　｜　<a href="https://github.com/simonsxxs">https://github.com/simonsxxs</a>　｜　<a href="https://gitee.com/simonsxx">https://gitee.com/simonsxx</a>　｜　个人网站 <a href="https://simonsxx.com">https://simonsxx.com</a></span>
+      </div>
+      <div class="chiprow">
+        <span class="chip">【关键标签 1】</span><span class="chip">【标签 2】</span><span class="chip">【标签 3】</span>
+      </div>
+    </div>
+    <div class="meta">
+      <table>
+        <tr><th>方案编号</th><td>【XXX-YYYY-NNN】</td></tr>
+        <tr><th>版 本</th><td>v1.0（评审稿）</td></tr>
+        <tr><th>日 期</th><td>【YYYY-MM-DD】</td></tr>
+        <tr><th>编 制</th><td>simon · 一个不懂代码的 AI 极客</td></tr>
+        <tr><th>【属性】</th><td>【值】</td></tr>
+        <tr><th>密 级</th><td>内部资料</td></tr>
+      </table>
+      <div class="metaqr"><img src="data:image/png;base64,【wechat-qr.b64 内容】" alt="微信交流群二维码"><div>扫码 · 微信交流群</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<!-- ==================== 目录 ===================== -->
+<nav class="toc" id="toc">
+  <div class="toc-t">目 录 / CONTENTS</div>
+  <a href="#s01"><span class="n">01</span>【第一章】</a>
+  <a href="#s02"><span class="n">02</span>【第二章】</a>
+  <button class="print-btn" onclick="window.print()">⎙ 打印 / 导出 PDF</button>
+</nav>
+
+<main>
+<!-- ▼▼ 章节模板：复制本块，改编号/锚点/标题；插章后必须跑 renumber.mjs ▼▼ -->
+<section class="sec" id="s01">
+  <div class="sec-head"><span class="no">01</span><h2>【章节标题】</h2><span class="en">【ENGLISH LABEL】</span></div>
+
+  <p>【正文段落。<b>关键结论加粗</b>，<code>技术名词用等宽</code>，路径用 <span class="path">path/to</span>。】</p>
+
+  <h3>1.1 【小节标题】</h3>
+  <div class="tbl-wrap"><table class="tbl">
+    <tr><th style="width:120px">列头</th><th>列头</th><th>列头</th></tr>
+    <tr><td><b>要点</b></td><td>说明</td><td>说明</td></tr>
+  </table></div>
+
+  <div class="note"><span class="t">◆ 设计要点</span>【蓝色 callout：设计主张】</div>
+  <div class="warn"><span class="t">▲ 风险</span>【琥珀 callout：风险与对策】</div>
+  <div class="proof"><span class="t">✓ 已验证模式</span>【绿色 callout：必须指向真实读过的实现，严禁虚构】</div>
+
+  <!-- 图模板：marker id 全文档唯一（af 按图号递增）；双行文字用两个 text -->
+  <figure class="fig">
+    <svg viewBox="0 0 960 【高】" role="img" aria-label="【图名】">
+      <defs>
+        <marker id="af1" markerWidth="7" markerHeight="7" refX="6.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#3d4c6b"/></marker>
+      </defs>
+      <rect class="bx" x="40" y="40" width="200" height="64" rx="7"/>
+      <text class="tT" x="140" y="66" text-anchor="middle">【框标题】</text>
+      <text class="tS" x="140" y="86" text-anchor="middle">【框说明】</text>
+      <line class="ar" x1="240" y1="72" x2="300" y2="72" style="marker-end:url(#af1)"/>
+    </svg>
+    <div class="fig-cap"><span class="fig-no">图 1</span><span class="cap-t">【图标题】</span><span class="cap-d">【图例说明：实线=请求、虚线=X、琥珀=Y】。</span></div>
+  </figure>
+</section>
+<!-- ▲▲ 章节模板结束 ▲▲ -->
+
+</main>
+</div>
+
+<!-- ==================== 尾页 · 签名 ==================== -->
+<section class="sec colophon" id="colophon">
+  <div class="colophon-card">
+    <div class="k">COLOPHON · 文档编制</div>
+    <div class="name">simon</div>
+    <div class="tagline">一个不懂代码的 AI 极客</div>
+    <div class="qrbox"><img src="data:image/png;base64,【wechat-qr.b64 内容】" alt="微信交流群二维码"><div class="qrcap">扫码进微信交流群 · simonsxxs</div></div>
+    <div class="contacts">微信 simonsxxs<br><a href="https://github.com/simonsxxs">https://github.com/simonsxxs</a><br><a href="https://gitee.com/simonsxx">https://gitee.com/simonsxx</a><br>个人网站 <a href="https://simonsxx.com">https://simonsxx.com</a></div>
+    <div class="docmeta">【方案编号】· v1.0 · 【日期】｜ 【编制依据】 ｜ 内部资料 · 请勿外传</div>
+  </div>
+</section>
+
+<footer>
+  <span>【方案编号】· v1.0 · 【日期】</span>
+  <span>作者：simon，一个不懂代码的AI极客　｜　微信 simonsxxs · <a href="https://github.com/simonsxxs">https://github.com/simonsxxs</a> · <a href="https://gitee.com/simonsxx">https://gitee.com/simonsxx</a> · <a href="https://simonsxx.com">https://simonsxx.com</a></span>
+  <span>【编制依据一行】</span>
+  <span>内部资料 · 请勿外传</span>
+</footer>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var secs = links.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
+  function onScroll(){
+    var h = document.documentElement;
+    var sc = h.scrollTop || document.body.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    document.getElementById('progress').style.width = (max>0 ? (sc/max*100) : 0) + '%';
+    var idx = -1;
+    for (var i=0;i<secs.length;i++){ if (secs[i].getBoundingClientRect().top < 140) idx = i; }
+    links.forEach(function(a,i){ a.classList.toggle('on', i===idx); });
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>
